@@ -1,5 +1,6 @@
 package tic_tac_toe_app;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -23,37 +24,42 @@ public class TicTacToe {
         setGame();
 
         while (true) {
-            showBoard();
+            try {
 
-            // Getting player's move first by row, then by column.
-            row = getPlayerMove("Move (row) (0-" + (BOARD_SIZE - 1) +
-                    "): " + "Player" + " " + currentPlayer + "\n");
-            col = getPlayerMove("Move (column) (0-" + (BOARD_SIZE - 1)
-                    + "): " + "Player" + " " + currentPlayer + "\n");
-
-            // Checking if the given move is valid or not.
-            if (!isValidMove(row, col)) {
-                System.out.println("Move not valid. Set a valid move please: ");
-                continue;
-            }
-
-            makeMove(row, col);
-
-            // Checks with method if the player won the game.
-            if (checkIfWin()) {
                 showBoard();
-                System.out.println("Player " + currentPlayer + " won the game!");
-                break;
-            }
 
-            // Checks if the board is full, if the board is full then the game is a tie.
-            if (isBoardFull()) {
-                showBoard();
-                System.out.println("Draw!");
-                break;
-            }
+                // Getting player's move first by row, then by column.
+                row = getPlayerMove("Move (row) (0-" + (BOARD_SIZE - 1) +
+                        "): " + "Player" + " " + currentPlayer + "\n");
+                col = getPlayerMove("Move (column) (0-" + (BOARD_SIZE - 1)
+                        + "): " + "Player" + " " + currentPlayer + "\n");
 
-            changePlayer();
+                // Checking if the given move is valid or not.
+                if (!isValidMove(row, col)) {
+                    System.out.println("Move not valid. Set a valid move please: ");
+                    continue;
+                }
+
+                makeMove(row, col);
+
+                // Checks with method if the player won the game.
+                if (checkIfWin()) {
+                    showBoard();
+                    System.out.println("Player " + currentPlayer + " won the game!");
+                    break;
+                }
+
+                // Checks if the board is full, if the board is full then the game is a tie.
+                if (isBoardFull()) {
+                    showBoard();
+                    System.out.println("Draw!");
+                    break;
+                }
+
+                changePlayer();
+            } catch (Exception e) {
+                System.out.println("An error occurred: " + e.getMessage());
+            }
         }
     }
 
@@ -85,7 +91,15 @@ public class TicTacToe {
     public static int getPlayerMove(String message) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(message);
-        return scanner.nextInt();
+        try {
+
+            return scanner.nextInt();
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number for move to proceed...");
+            scanner.nextLine();
+            return getPlayerMove(message);
+        }
     }
 
     // Method for move validation.

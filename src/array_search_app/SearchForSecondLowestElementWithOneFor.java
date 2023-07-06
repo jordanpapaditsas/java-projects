@@ -1,14 +1,21 @@
 package array_search_app;
 
+/**
+ *  A simple array search method to
+ *  find the 2nd lowest value element inside
+ *  the array given.
+ *
+ * @author Jordan
+ *
+ */
 public class SearchForSecondLowestElementWithOneFor {
 
     public static void main(String[] args) {
-
-        int[] arr = {0, 22, 32, 10};
+        int[] arr = {3, 2, 6, 3, 2, 1, 5};
         int secondMinPosition;
         int secondMinValue;
 
-        secondMinPosition = getSecondMinElementPosition(arr, 0, 3);
+        secondMinPosition = getSecondMinElementPosition(arr, 0, arr.length - 1);
         secondMinValue = arr[secondMinPosition];
 
         System.out.printf(" Second minValue: %d\n Second minValue position: %d", secondMinValue, secondMinPosition);
@@ -16,6 +23,9 @@ public class SearchForSecondLowestElementWithOneFor {
     }
 
     public static int getSecondMinElementPosition(int[] arr, int low, int high) {
+        if (arr == null || low > high || low < 0 || arr.length <= 1)
+            return -1;
+
         int minPosition = low;
         int minValue = arr[low];
 
