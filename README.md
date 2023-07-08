@@ -1,6 +1,6 @@
 # [Coding Factory](https://codingfactory.aueb.gr/)  
 ## Description  
-Demonstrating all the projects i have created using Java, for Coding Factory bootcamp.
+Demonstrating all the projects i have created using Java, for the Coding Factory bootcamp.
 ## Curriculum
 Chapters covered: 
 <ol>
